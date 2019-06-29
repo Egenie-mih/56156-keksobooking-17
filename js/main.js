@@ -68,7 +68,7 @@ function setPins(offersData) {
   return pinFragment;
 }
 
-var wizardList = createOffersPins();
-var wizardElement = setPins(wizardList);
-pinList.appendChild(wizardElement);
+var pinsList = createOffersPins();
+var pinElement = setPins(pinsList);
+pinList.appendChild(pinElement);
 map.classList.remove('map--faded');
