@@ -4,11 +4,11 @@ var OFFERS_NUMBER = 8;
 var HOUSE_TYPES = ['palace', 'flat', 'house', 'bungalo'];
 var PIN_Y_MIN = 130;
 var PIN_Y_MAX = 630;
-var MAP_WIDTH = map.offsetWidth;
 var PIN_WIDTH = 50;
 var map = document.querySelector('.map');
 var pinList = document.querySelector('.map__pins');
 var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
+var mapWidth = map.offsetWidth;
 
 function getRandomInteger(array) {
   return Math.floor(Math.random() * (array.length - 1));
@@ -22,7 +22,7 @@ var createOffersPins = function () {
   var allPins = [];
   var pinOffset = PIN_WIDTH / 2;
   var pinXMin = pinOffset;
-  var pinXMax = MAP_WIDTH - pinOffset;
+  var pinXMax = mapWidth - pinOffset;
 
   for (var i = 0; i < OFFERS_NUMBER; i++) {
     var authorId = i + 1;
