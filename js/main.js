@@ -72,7 +72,6 @@ var createOffersPins = function () {
   }
 
   return allPins;
-
 };
 
 var renderPin = function (pin) {
@@ -104,9 +103,7 @@ mainPin.addEventListener('click', function () {
 });
 
 mainPin.addEventListener('mouseup', function () {
-  activatePage();
   addressInput.value = String(mainPin.offsetLeft + Math.round(PIN_WIDTH / 2)) + ', ' + String(mainPin.offsetTop + MAIN_PIN_HEIGHT);
 });
 
 loadPage();
-
