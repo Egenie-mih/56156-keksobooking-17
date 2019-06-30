@@ -5,11 +5,31 @@ var HOUSE_TYPES = ['palace', 'flat', 'house', 'bungalo'];
 var PIN_Y_MIN = 130;
 var PIN_Y_MAX = 630;
 var PIN_WIDTH = 50;
+var MAIN_PIN_HEIGHT = 80;
+
+var MIN_HOUSE_PRICE = {
+  'bungalo': 0,
+  'flat': 1000,
+  'house': 5000,
+  'palace': 10000
+};
+
 var map = document.querySelector('.map');
 var pinList = document.querySelector('.map__pins');
 var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 var mapWidth = map.offsetWidth;
+var mapFaded = document.querySelector('.map--faded');
+var mapFilters = document.querySelector('.map__filters');
+var mainPin = document.querySelector('.map__pin--main');
+var adForm = document.querySelector('.ad-form');
+var formFieldsets = adForm.querySelectorAll('fieldset');
+var addressInput = adForm.querySelector('input[name="address"]');
+var houseTypeSelect = adForm.querySelector('select[name="type"]');
+var checkInTimeSelect = adForm.querySelector('select[name="timein"]');
+var checkOutTimeSelect = adForm.querySelector('select[name="timeout"]');
+var priceInput = adForm.querySelector('input[name="price"]');
 
+// functions
 function getRandomInteger(array) {
   return Math.floor(Math.random() * (array.length - 1));
 }
@@ -17,6 +37,38 @@ function getRandomInteger(array) {
 function getRandomIntegerInRange(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
+// activate page
+var toggleDisabledAttribute = function (array, disabledValue) {
+  for (var i = 0; i < array.length; i++) {
+    array[i].disabled = disabledValue;
+  }
+};
+
+var loadPage = function () {
+  toggleDisabledAttribute(formFieldsets, true);
+  toggleDisabledAttribute(mapFilters, true);
+  addressInput.value = String(mainPin.offsetLeft) + ', ' + String(mainPin.offsetTop);
+};
+
+var setMinPrice = function () {
+  priceInput.placeholder = MIN_HOUSE_PRICE[houseTypeSelect.value];
+  priceInput.min = MIN_HOUSE_PRICE[houseTypeSelect.value];
+};
+
+var setCheckOutTime = function () {
+  checkOutTimeSelect.value = checkInTimeSelect.value;
+};
+
+var activatePage = function () {
+  mapFaded.classList.remove('map--faded');
+  pinList.appendChild(pinElement);
+  adForm.classList.remove('ad-form--disabled');
+  toggleDisabledAttribute(formFieldsets, false);
+  toggleDisabledAttribute(mapFilters, false);
+  houseTypeSelect.addEventListener('change', setMinPrice);
+  checkInTimeSelect.addEventListener('change', setCheckOutTime);
+};
 
 var createOffersPins = function () {
   var allPins = [];
@@ -44,7 +96,6 @@ var createOffersPins = function () {
   }
 
   return allPins;
-
 };
 
 var renderPin = function (pin) {
@@ -70,5 +121,13 @@ function setPins(offersData) {
 
 var pinsList = createOffersPins();
 var pinElement = setPins(pinsList);
-pinList.appendChild(pinElement);
-map.classList.remove('map--faded');
+
+mainPin.addEventListener('click', function () {
+  activatePage();
+});
+
+mainPin.addEventListener('mouseup', function () {
+  addressInput.value = String(mainPin.offsetLeft + Math.round(PIN_WIDTH / 2)) + ', ' + String(mainPin.offsetTop + MAIN_PIN_HEIGHT);
+});
+
+loadPage();
