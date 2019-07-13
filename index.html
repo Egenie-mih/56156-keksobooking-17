@@ -117,7 +117,7 @@
       </fieldset>
       <fieldset class="ad-form__element">
         <label class="ad-form__label" for="price">Цена за ночь, руб.</label>
-        <input id="price" name="price" type="number" placeholder="1000" min="0" max="1000000" required>
+        <input id="price" name="price" type="number" placeholder="5000" step="1000" min="0" max="1000000" required>
       </fieldset>
       <fieldset class="ad-form__element ad-form__element--time">
         <label class="ad-form__label" for="timein">Время заезда и выезда</label>
@@ -240,7 +240,7 @@
   </div>
 </template>
 
-<!-- Сообщение об ошибке создания объеявления -->
+<!-- Сообщение об ошибке создания объявления -->
 <template id="error">
   <div class="error">
     <p class="error__message">Ошибка загрузки объявления</p>

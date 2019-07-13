@@ -56,8 +56,10 @@ var setMinPrice = function () {
   priceInput.min = MIN_HOUSE_PRICE[houseTypeSelect.value];
 };
 
-var setCheckOutTime = function () {
-  checkOutTimeSelect.value = checkInTimeSelect.value;
+var changeCheckTime = function (evt) {
+  var target = evt.target;
+  var changedField = target === checkOutTimeSelect ? checkInTimeSelect : checkOutTimeSelect;
+  changedField.value = target.value;
 };
 
 var activatePage = function () {
@@ -67,7 +69,8 @@ var activatePage = function () {
   toggleDisabledAttribute(formFieldsets, false);
   toggleDisabledAttribute(mapFilters, false);
   houseTypeSelect.addEventListener('change', setMinPrice);
-  checkInTimeSelect.addEventListener('change', setCheckOutTime);
+  checkInTimeSelect.addEventListener('change', changeCheckTime);
+  checkOutTimeSelect.addEventListener('change', changeCheckTime);
 };
 
 var createOffersPins = function () {
