@@ -1,4 +1,5 @@
 'use strict';
+
 (function () {
   var positionMaxX = window.utils.mapWidth;
   var positionMinX = 0;

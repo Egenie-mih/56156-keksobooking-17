@@ -7,7 +7,6 @@
     'house': 5000,
     'palace': 10000
   };
-
   var mapFilters = window.utils.map.querySelector('.map__filters');
   var adForm = document.querySelector('.ad-form');
   var formFieldsets = adForm.querySelectorAll('fieldset');
@@ -50,6 +49,11 @@
     checkInTimeSelect.addEventListener('change', changeCheckTime);
     checkOutTimeSelect.addEventListener('change', changeCheckTime);
   };
+
+  adForm.addEventListener('submit', function (evt) {
+    evt.preventDefault();
+    window.upload(new FormData(adForm), window.data.successHandler, window.data.errorHandler);
+  });
 
   window.form = {
     addressInput: addressInput,
